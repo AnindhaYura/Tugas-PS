@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Peta Rumah Sakit Sleman (Tanpa CSV)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+  <style>
+    body { margin: 0; padding: 0; }
+    #map { height: 100vh; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-dark bg-dark p-3">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Rumah Sakit Sleman</a>
+      <div>
+        <a class="nav-link d-inline text-white" href="index.html">Beranda</a>
+        <a class="nav-link d-inline text-white" href="data.html">Data Rumah Sakit</a>
+      </div>
+    </div>
+  </nav>
+
+  <div id="map"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <script>
+    const map = L.map('map').setView([-7.75, 110.4], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    const rumahSakit = [
+        {
+        nama: "RSA UGM",
+        alamat: "Jl. Kabupaten (Lingkar Utara), Kronggahan, Trihanggo, Gamping",
+        lat: -7.743165532576392,
+        lon: 110.35032017501329,
+        tempatTidur: 149,
+        telepon: "0274-4530404 / 0274-4530606",
+        kelas: "B",
+        jenis: "RSU",
+        akreditasi: "Sudah"
+      },
+      {
+        nama: "RSUD Sleman",
+        alamat: "Jl Bhayangkara 48 Triharjo Sleman",
+        lat: -7.686829264618632,
+        lon: 110.34190608094792,
+        tempatTidur: 200,
+        telepon: "0274-868411",
+        kelas: "B",
+        jenis: "RSUD",
+        akreditasi: "Paripurna"
+      },
+      {
+        nama: "RS JIH",
+        alamat: "Jl Ring Road Utara no. 160 Condongcatur Depok",
+        lat: -7.757603623507384,
+        lon: 110.40338253666779,
+        tempatTidur: 250,
+        telepon: "0274-4460000",
+        kelas: "B",
+        jenis: "Swasta",
+        akreditasi: "Paripurna"
+      },
+      {
+        nama: "RS Panti Rini",
+        alamat: "Jl Solo Km 12,5 Krajan Tirtomartani Kalasan",
+        lat: -7.772177569789232,
+        lon: 110.46678294236756,
+        tempatTidur: 120,
+        telepon: "0274-498000",
+        kelas: "C",
+        jenis: "RSU",
+        akreditasi: "Sudah"
+      },
+      {
+        nama: "RSUD Prambanan",
+        alamat: "Jl Prambanan Piyungan Km.7, Delegan, Sumberharjo",
+        lat: -7.804624328351324,
+        lon: 110.4831548923546,
+        tempatTidur: 100,
+        telepon: "0274-496666",
+        kelas: "C",
+        jenis: "RSUD",
+        akreditasi: "Sudah"
+      }
+    ];
+
+    rumahSakit.forEach(rs => {
+      const marker = L.marker([rs.lat, rs.lon]).addTo(map);
+      marker.bindPopup(`
+        <div style="min-width:250px">
+          <strong>${rs.nama}</strong><br>
+          📍 ${rs.alamat}<br>
+          🛏️ ${rs.tempatTidur} tempat tidur<br>
+          ☎️ ${rs.telepon}<br>
+          🏷️ Kelas: ${rs.kelas}<br>
+          Jenis: ${rs.jenis} | Akreditasi: ${rs.akreditasi}
+        </div>
+      `);
+    });
+  </script>
+</body>
+</html>

@@ -1,13 +1,13 @@
 .hero {
   background: url('https://ppid.sardjito.co.id/wp-content/uploads/2024/11/sardjito-scaled-1280x650.webp') center center / cover no-repeat;
-  color: white;
+  margin-top: -20px;
   height: 100vh;
   position: relative;
 }
 
 .hero-content {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }

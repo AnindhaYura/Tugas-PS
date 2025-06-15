@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Cari Rumah Sakit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .suggestion-item {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 10px;
+    }
+    .suggestion-item a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+    }
+    .suggestion-item:hover {
+      background-color: #f8f9fa;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-dark p-3">
+    <div class="container">
+      <a class="navbar-brand" href="#">Rumah Sakit Sleman</a>
+      <div>
+        <a class="nav-link d-inline text-white" href="index.html">Beranda</a>
+        <a class="nav-link d-inline text-white" href="search.html">Search</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Search Box -->
+  <section class="container mt-5">
+    <h4 class="mb-3">Cari Rumah Sakit</h4>
+    <input type="text" id="searchInput" class="form-control" placeholder="Ketik nama, alamat, atau jenis rumah sakit...">
+    <div id="suggestions" class="mt-3"></div>
+  </section>
+
+  <!-- Script -->
+  <script>
+    const rumahSakit = [
+      { id: "RS01", nama: "RS Sardjito", alamat: "Jl Kesehatan No.1 Sekip Yogyakarta", jenis: "RSU" },
+      { id: "RS02", nama: "RSUD Sleman", alamat: "Jl Bhayangkara 48 Triharjo Sleman", jenis: "RSU" },
+      { id: "RS03", nama: "RSUD Prambanan", alamat: "Jl Prambanan Piyungan Km.7, Prambanan", jenis: "RSU" },
+      { id: "RS04", nama: "RSA UGM", alamat: "Kronggahan, Trihanggo, Gamping", jenis: "RSU" },
+      { id: "RS05", nama: "RS Bhayangkara", alamat: "Tirtomartani Kalasan Sleman", jenis: "RSU" },
+      { id: "RS06", nama: "RS PDHI", alamat: "Jl Solo Km 12,5 Kalasan", jenis: "RSU" },
+      { id: "RS07", nama: "RS JIH", alamat: "Ring Road Utara Condongcatur", jenis: "RSU" },
+      { id: "RS08", nama: "RS Concat", alamat: "Condong Catur Sleman", jenis: "RSU" },
+      { id: "RS09", nama: "RS Panti Nugroho", alamat: "Pakem, Sleman", jenis: "RSU" },
+      { id: "RS10", nama: "RS Atturots", alamat: "Margoluwih Seyegan", jenis: "RSU" },
+      { id: "RS11", nama: "RS PKU Muh Gamping", alamat: "Wates KM 5,5 Gamping", jenis: "RSU" },
+      { id: "RS12", nama: "RS Panti Rini", alamat: "Tirtomartani Kalasan", jenis: "RSU" },
+      { id: "RS13", nama: "RS Mitra Paramedika", alamat: "Ngemplak", jenis: "RSU" },
+      { id: "RS14", nama: "RS Mitra Sehat", alamat: "Balecatur, Gamping", jenis: "RSU" },
+      { id: "RS15", nama: "RS UAD", alamat: "Wedomartani, Ngemplak", jenis: "No Data" },
+      { id: "RS16", nama: "RS Gramedika 10", alamat: "Sardonoharjo, Ngaglik", jenis: "RSU" },
+      { id: "RS17", nama: "RSK Gigi Mulut", alamat: "Sekip Utara Yogyakarta", jenis: "RSK-Gigi dan Mulut" },
+      { id: "RS18", nama: "RSKB Sinduadi", alamat: "Sinduadi Mlati", jenis: "RSK-Bedah" },
+      { id: "RS19", nama: "RSKB Annur", alamat: "Jl. Colombo Sleman", jenis: "RSK-Bedah" },
+      { id: "RS20", nama: "RSKIA Sakina Idaman", alamat: "Mlati, Sleman", jenis: "RSU" },
+      { id: "RS21", nama: "RSKIA Arvita Bunda", alamat: "Maguwoharjo, Depok", jenis: "RSK-Ibu dan Anak" },
+      { id: "RS22", nama: "RS Sadewa", alamat: "Caturnunggal Depok", jenis: "RSK-Ibu dan Anak" },
+      { id: "RS23", nama: "RS Queen Latifa", alamat: "Nogotirto - Sleman", jenis: "RSU" },
+      { id: "RS24", nama: "RS Puri Husada", alamat: "Rejodani Ngaglik Sleman", jenis: "RSU" },
+      { id: "RS25", nama: "RS Grasia", alamat: "Pakem Sleman", jenis: "RSK-Jiwa" },
+      { id: "RS26", nama: "RSKIA Hermina", alamat: "Maguwoharjo, Depok", jenis: "RSU" },
+      { id: "RS27", nama: "RS Panti Bhaktiningsih", alamat: "Tidak diketahui", jenis: "No Data" }
+    ];
+
+    const searchInput = document.getElementById('searchInput');
+    const suggestions = document.getElementById('suggestions');
+
+    searchInput.addEventListener('input', function () {
+      const keyword = this.value.toLowerCase();
+      suggestions.innerHTML = '';
+
+      if (keyword.trim() === '') return;
+
+      const hasil = rumahSakit.filter(rs =>
+        rs.nama.toLowerCase().includes(keyword) ||
+        rs.alamat.toLowerCase().includes(keyword) ||
+        rs.jenis.toLowerCase().includes(keyword)
+      );
+
+      if (hasil.length === 0) {
+        suggestions.innerHTML = '<p class="text-muted">Tidak ditemukan hasil</p>';
+        return;
+      }
+
+      hasil.forEach(rs => {
+        const div = document.createElement('div');
+        div.className = 'suggestion-item';
+        div.innerHTML = `
+          <a href="detail-rs.html?id=${rs.id}">
+            <strong>${rs.nama}</strong><br>
+            📍 ${rs.alamat}<br>
+            🏥 Jenis: ${rs.jenis}
+          </a>
+        `;
+        suggestions.appendChild(div);
+      });
+    });
+  </script>
+
+</body>
+</html>

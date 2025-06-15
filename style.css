@@ -1,7 +1,7 @@
 .hero {
   background: url('https://ppid.sardjito.co.id/wp-content/uploads/2024/11/sardjito-scaled-1280x650.webp') center center / cover no-repeat;
+  height: 95vh;
   margin-top: -20px;
-  height: 100vh;
   position: relative;
 }
 

@@ -1,3 +1,28 @@
+/* Reset dasar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #222;
+  color: white;
+  padding: 1rem 2rem;
+  z-index: 1000;
+}
+
 .hero {
   background: url('https://ppid.sardjito.co.id/wp-content/uploads/2024/11/sardjito-scaled-1280x650.webp') center center / cover no-repeat;
   height: 95vh;
